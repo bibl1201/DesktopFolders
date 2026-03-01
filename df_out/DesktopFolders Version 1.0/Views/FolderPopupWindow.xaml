@@ -1,0 +1,70 @@
+<Window x:Class="DesktopFolders.Views.FolderPopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FolderPopup"
+        MinWidth="260" MaxWidth="440"
+        SizeToContent="WidthAndHeight"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize">
+
+    <Border x:Name="MainPanel"
+            CornerRadius="20"
+            Padding="16"
+            MinWidth="260"
+            AllowDrop="True"
+            DragEnter="Panel_DragEnter"
+            DragLeave="Panel_DragLeave"
+            Drop="Panel_Drop">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="24" ShadowDepth="5" Opacity="0.55"/>
+        </Border.Effect>
+
+        <StackPanel>
+            <!-- Header row: title + settings button -->
+            <DockPanel Margin="0,0,0,12">
+                <Button x:Name="SettingsBtn" DockPanel.Dock="Right"
+                        Content="⚙" FontSize="16"
+                        Background="Transparent" BorderThickness="0"
+                        Foreground="White" Cursor="Hand"
+                        Padding="4,0" VerticalAlignment="Center"
+                        Click="Settings_Click"/>
+                <TextBlock x:Name="FolderTitle"
+                           FontSize="16" FontFamily="Segoe UI"
+                           FontWeight="Bold" Foreground="White"
+                           VerticalAlignment="Center"/>
+            </DockPanel>
+
+            <!-- App grid -->
+            <WrapPanel x:Name="AppGrid"
+                       HorizontalAlignment="Center"
+                       Orientation="Horizontal"
+                       MaxWidth="400"/>
+
+            <!-- Drop hint (shown when dragging over popup) -->
+            <Border x:Name="DropHint"
+                    CornerRadius="10"
+                    BorderThickness="2"
+                    Margin="0,6,0,0"
+                    Padding="10,6"
+                    Visibility="Collapsed">
+                <TextBlock Text="Drop here to add app" Foreground="White"
+                           FontSize="12" FontFamily="Segoe UI"
+                           HorizontalAlignment="Center"/>
+            </Border>
+
+            <!-- Empty state -->
+            <TextBlock x:Name="EmptyLabel"
+                       Text="No apps yet.&#x0a;Drag .exe files here or right-click&#x0a;the folder widget to edit."
+                       Foreground="#88FFFFFF"
+                       FontSize="12" FontFamily="Segoe UI"
+                       HorizontalAlignment="Center"
+                       Margin="0,8" Visibility="Collapsed"
+                       TextWrapping="Wrap" TextAlignment="Center"
+                       MaxWidth="220"/>
+        </StackPanel>
+    </Border>
+</Window>

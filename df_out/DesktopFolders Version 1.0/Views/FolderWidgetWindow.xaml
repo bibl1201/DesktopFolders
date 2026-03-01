@@ -1,0 +1,80 @@
+<Window x:Class="DesktopFolders.Views.FolderWidgetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FolderWidget"
+        Width="96" Height="96"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Topmost="False"
+        ResizeMode="NoResize">
+
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Edit Folder"   Click="EditFolder_Click"/>
+            <MenuItem Header="Delete Folder" Click="DeleteFolder_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+
+    <Grid x:Name="RootGrid" AllowDrop="True"
+          DragEnter="Grid_DragEnter" DragLeave="Grid_DragLeave" Drop="Grid_Drop">
+
+        <!-- Drop highlight ring -->
+        <Border x:Name="DropHighlight"
+                Width="80" Height="80"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
+                CornerRadius="18" BorderBrush="White" BorderThickness="3"
+                Opacity="0" IsHitTestVisible="False"/>
+
+        <!-- Folder icon — fully code-driven, no GradTop/GradBottom named stops -->
+        <Border x:Name="FolderIcon"
+                Width="76" Height="76"
+                VerticalAlignment="Top" HorizontalAlignment="Center"
+                CornerRadius="16" Cursor="Hand">
+
+            <!-- Mini 2x2 icon grid -->
+            <Grid x:Name="MiniGrid" Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition/><RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/><ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="MiniIcon0" Grid.Row="0" Grid.Column="0"
+                        Background="White" Opacity="0" CornerRadius="4" Margin="2"/>
+                <Border x:Name="MiniIcon1" Grid.Row="0" Grid.Column="1"
+                        Background="White" Opacity="0" CornerRadius="4" Margin="2"/>
+                <Border x:Name="MiniIcon2" Grid.Row="1" Grid.Column="0"
+                        Background="White" Opacity="0" CornerRadius="4" Margin="2"/>
+                <Border x:Name="MiniIcon3" Grid.Row="1" Grid.Column="1"
+                        Background="White" Opacity="0" CornerRadius="4" Margin="2"/>
+            </Grid>
+        </Border>
+
+        <!-- Label — pill background shown/hidden by code -->
+        <Border x:Name="LabelPill"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                CornerRadius="8" Padding="6,2"
+                Visibility="Collapsed">
+            <Border.Background>
+                <SolidColorBrush Color="#AA000000"/>
+            </Border.Background>
+            <TextBlock x:Name="FolderLabelPill"
+                       Foreground="White" FontSize="11" FontFamily="Segoe UI"
+                       FontWeight="SemiBold" TextAlignment="Center"
+                       MaxWidth="88" TextTrimming="CharacterEllipsis"/>
+        </Border>
+
+        <!-- Shadow-style label (default) -->
+        <TextBlock x:Name="FolderLabel"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                   Foreground="White" FontSize="11" FontFamily="Segoe UI"
+                   FontWeight="SemiBold" TextAlignment="Center"
+                   MaxWidth="92" TextTrimming="CharacterEllipsis">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="1" Opacity="0.9"/>
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</Window>
